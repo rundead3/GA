@@ -11,6 +11,7 @@ Created on Sat May 21 11:34:32 2022
 from copy import deepcopy
 from Individuals import Individual
 from random import sample, random, randint
+import numpy as np
 
 def template_mutation(parent1):
     """ Given 1 parent, generates a child
@@ -50,13 +51,15 @@ def inverse_mutation(parent1):
 
 
 def boundary_mutation(parent1):
-    new_representation = deepcopy(parent1.representation)
-    i = randint(0,len(new_representation)-1)
     r = random()
-    if r >= 0.5:
-        new_representation[i] = new_representation[i] * new_representation[-1]
-    else:
-        new_representation[i] = new_representation[i] *-1.1*new_representation[-1]
+    new_representation = deepcopy(parent1.representation)
+    for i in range(len(new_representation)):
+        if  r > abs(np.arctan(new_representation[-1]))/(np.pi*0.5):
+            i = randint(0,len(new_representation)-1)
+            if r >= 0.5:
+                new_representation[i] = new_representation[i] + np.random.randn()*(new_representation[i] / new_representation[-2])
+            else:
+                new_representation[i] = new_representation[i] - np.random.randn()*(new_representation[i] / new_representation[-2])
     new_indiv = Individual(new_representation)
     return new_indiv
 

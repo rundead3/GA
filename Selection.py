@@ -24,7 +24,7 @@ def random_selection(elements):
     return selected[0], selected[1]
 
 
-def tournament_selection(population, size= 8):
+def tournament_selection(population, size):
     # Select individuals based on tournament size
     tournament1 = sample(population, size)
     tournament2 = sample(population, size)

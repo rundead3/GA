@@ -65,6 +65,27 @@ def double_point_co(parent1, parent2):
     return child1, child2
 
 
+def k_point_co(parent1, parent2):
+    """ Given 2 parents, generates 2 children.
+
+    Inputs:
+        - parent1: Individual
+        - parent2: Individual
+    Output:
+        - child1: Individual
+        - child2: Individual
+    """
+    co_point1 = randint(1, len(parent1.representation) - 4)
+    co_point2 = randint(co_point1, len(parent1.representation) - 2)
+
+    child1_repr = parent1.representation[:co_point1] + parent2.representation[co_point1:co_point2] + parent1.representation[co_point2:]
+    child2_repr = parent2.representation[:co_point1] + parent1.representation[co_point1:co_point2] + parent2.representation[co_point2:]
+
+    child1 = Individual(child1_repr)
+    child2 = Individual(child2_repr)
+
+    return child1, child2
+
 def pmx_co(parent1, parent2):
     # Sample 2 random co points
     co_points = sample(range(len(parent1.representation)), 2)

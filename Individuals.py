@@ -21,9 +21,9 @@ class Individual:
     
     def calculate_fitness(self):
         fitness = 0
-        for i in range(len(matrix)): 
-            ip = np.dot(self.representation[:-2],d_data[i])
-            calc_bio = ip + self.representation[-2]
+        for i in range(len(matrix)):
+            ip = np.dot(self.representation[:-3],d_data[i])
+            calc_bio = ip + self.representation[-3]
             fitness += np.square(np.subtract(b_data[i],calc_bio))
         fitness = math.sqrt(fitness/len(matrix))
         return fitness
@@ -44,9 +44,16 @@ class Individual:
         
 def generate_solution():
     representation = []
-    n_descriptors = len(matrix[0])+1
-    for i in range(n_descriptors):
-        representation.append(np.random.randn())
+    n_descriptors = len(matrix[0])+2
+    for i in range(n_descriptors-3):
+        representation.append(2*np.random.randn())
+    #constant
+    representation.append(50*np.random.random())
+    #mutameta
+    representation.append(1+50*np.random.random())
+    #mutchance
+    representation.append(np.random.random())
+
     return representation
 
 # def is_admissible(representation):
